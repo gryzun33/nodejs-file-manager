@@ -1,12 +1,17 @@
 import os from 'os';
 
+// console.log('homepage=', os.homedir());
+const currentPath = os.homedir();
+
 function startFileManager() {
   const args = process.argv.slice(2);
   const argUser = args.find((arg) => arg.startsWith('--username='));
   let userName = '';
+
   if (argUser) {
     userName = argUser.split('=')[1];
     process.stdout.write(`Welcome to the File Manager, ${userName}!${os.EOL}`);
+    printCurrentPath();
   }
 
   process.stdin.on('data', (input) => {
@@ -30,6 +35,10 @@ function startFileManager() {
     console.log('');
     process.exit(0);
   });
+}
+
+function printCurrentPath() {
+  process.stdout.write(`You are currently in ${currentPath}${os.EOL}`);
 }
 
 startFileManager();
