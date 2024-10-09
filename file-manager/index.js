@@ -1,9 +1,8 @@
 import os from 'os';
-
-// console.log('homepage=', os.homedir());
-const currentPath = os.homedir();
+import { upToFolder } from './src/upToFolder.js';
 
 function startFileManager() {
+  let currentPath = os.homedir();
   const args = process.argv.slice(2);
   const argUser = args.find((arg) => arg.startsWith('--username='));
   let userName = '';
@@ -11,7 +10,7 @@ function startFileManager() {
   if (argUser) {
     userName = argUser.split('=')[1];
     process.stdout.write(`Welcome to the File Manager, ${userName}!${os.EOL}`);
-    printCurrentPath();
+    printCurrentPath(currentPath);
   }
 
   process.stdin.on('data', (input) => {
@@ -20,9 +19,14 @@ function startFileManager() {
     switch (cmd) {
       case '.exit':
         process.exit(0);
+      case 'up':
+        currentPath = upToFolder(currentPath);
+        break;
       default:
-        process.stdout.write(`Unknown command${os.EOL}`);
+        process.stdout.write(`Invalid input${os.EOL}`);
     }
+
+    printCurrentPath(currentPath);
   });
 
   process.on('exit', () => {
@@ -37,8 +41,8 @@ function startFileManager() {
   });
 }
 
-function printCurrentPath() {
-  process.stdout.write(`You are currently in ${currentPath}${os.EOL}`);
+function printCurrentPath(path) {
+  process.stdout.write(`You are currently in ${path}${os.EOL}`);
 }
 
 startFileManager();
