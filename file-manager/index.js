@@ -1,5 +1,7 @@
 import os from 'os';
 import { upToFolder } from './src/upToFolder.js';
+import readline from 'readline';
+import { printList } from './src/printList.js';
 
 function startFileManager() {
   let currentPath = os.homedir();
@@ -13,30 +15,40 @@ function startFileManager() {
     printCurrentPath(currentPath);
   }
 
-  process.stdin.on('data', (input) => {
-    const cmd = input.toString().trim();
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  rl.on('line', async (input) => {
+    const cmd = input.trim();
+
+    // rl.prompt();
 
     switch (cmd) {
       case '.exit':
-        process.exit(0);
+        rl.close();
+        break;
       case 'up':
         currentPath = upToFolder(currentPath);
         break;
+      case 'ls':
+        await printList(currentPath);
+        break;
       default:
         process.stdout.write(`Invalid input${os.EOL}`);
+        break;
     }
 
     printCurrentPath(currentPath);
+
+    // rl.prompt();
   });
 
-  process.on('exit', () => {
+  rl.on('close', () => {
     process.stdout.write(
       `Thank you for using File Manager, ${userName}, goodbye!${os.EOL}`
     );
-  });
-
-  process.on('SIGINT', () => {
-    console.log('');
     process.exit(0);
   });
 }
