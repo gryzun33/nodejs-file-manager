@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 
-async function printList(currPath) {
+async function printList() {
+  const currPath = process.cwd();
   const data = await fs.readdir(currPath, { withFileTypes: true });
 
   const resultData = [];

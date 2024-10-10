@@ -33,10 +33,10 @@ function startFileManager() {
         rl.close();
         break;
       case 'up':
-        await upToFolder();
+        upToFolder();
         break;
       case 'ls':
-        await printList(currentPath);
+        await printList();
         break;
       default:
         process.stdout.write(`Invalid input${os.EOL}`);
