@@ -21,6 +21,30 @@ const commands = {
     fn: async () => await printList(),
     numbArgs: 0,
   },
+  cat: {
+    fn: (args) => readFileContent(args[0]),
+    numbArgs: 1,
+  },
+  add: {
+    fn: (args) => createFile(args[0]),
+    numbArgs: 1,
+  },
+  rn: {
+    fn: (args) => renameFile(args[0], args[1]),
+    numbArgs: 2,
+  },
+  cp: {
+    fn: (args) => copyFile(args[0], args[1]),
+    numbArgs: 2,
+  },
+  mv: {
+    fn: (args) => moveFile(args[0], args[1]),
+    numbArgs: 2,
+  },
+  rm: {
+    fn: (args) => removeFile(args[0]),
+    numbArgs: 1,
+  },
 };
 
 function startFileManager() {
