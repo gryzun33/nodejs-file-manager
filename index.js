@@ -1,7 +1,27 @@
 import os from 'os';
-import { upToFolder } from './src/upToFolder.js';
 import readline from 'readline';
+import { upToFolder } from './src/upToFolder.js';
+import { goToFolder } from './src/goToFolder.js';
 import { printList } from './src/printList.js';
+
+const commands = {
+  '.exit': {
+    fn: () => rl.close(),
+    numbArgs: 0,
+  },
+  up: {
+    fn: () => upToFolder(),
+    numbArgs: 0,
+  },
+  cd: {
+    fn: (args) => goToFolder(args[0]),
+    numbArgs: 1,
+  },
+  ls: {
+    fn: async () => await printList(),
+    numbArgs: 0,
+  },
+};
 
 function startFileManager() {
   let currentPath = os.homedir();
@@ -24,23 +44,43 @@ function startFileManager() {
   });
 
   rl.on('line', async (input) => {
-    const cmd = input.trim();
+    const [cmd, ...args] = input.trim().split(' ');
+    // const cmd = input.trim();
 
     // rl.prompt();
 
-    switch (cmd) {
-      case '.exit':
-        rl.close();
-        break;
-      case 'up':
-        upToFolder();
-        break;
-      case 'ls':
-        await printList();
-        break;
-      default:
+    // switch (cmd) {
+    //   case '.exit':
+    //     rl.close();
+    //     break;
+    //   case 'up':
+    //     upToFolder();
+    //     break;
+    //   case 'cd':
+    //     if (args.length === 0) {
+    //       break;
+    //     }
+    //     const dir = args.join(' ');
+    //     goToFolder(dir);
+    //     break;
+    //   case 'ls':
+    //     await printList();
+    //     break;
+    //   default:
+    //     process.stdout.write(`Invalid input${os.EOL}`);
+    //     break;
+    // }
+
+    if (commands[cmd]) {
+      const command = commands[cmd];
+
+      if (args.length !== command.numbArgs) {
         process.stdout.write(`Invalid input${os.EOL}`);
-        break;
+      } else {
+        await command.fn(args);
+      }
+    } else {
+      process.stdout.write(`Invalid input${os.EOL}`);
     }
 
     process.stdout.write(`You are currently in ${process.cwd()}${os.EOL}`);
