@@ -5,6 +5,8 @@ import { printList } from './src/printList.js';
 
 function startFileManager() {
   let currentPath = os.homedir();
+  process.chdir(currentPath);
+  // console.log('текущая директория:', process.cwd());
   const args = process.argv.slice(2);
   const argUser = args.find((arg) => arg.startsWith('--username='));
   let userName = '';
@@ -12,7 +14,8 @@ function startFileManager() {
   if (argUser) {
     userName = argUser.split('=')[1];
     process.stdout.write(`Welcome to the File Manager, ${userName}!${os.EOL}`);
-    printCurrentPath(currentPath);
+    process.stdout.write(`You are currently in ${process.cwd()}${os.EOL}`);
+    // printCurrentPath(currentPath);
   }
 
   const rl = readline.createInterface({
@@ -30,7 +33,7 @@ function startFileManager() {
         rl.close();
         break;
       case 'up':
-        currentPath = upToFolder(currentPath);
+        await upToFolder();
         break;
       case 'ls':
         await printList(currentPath);
@@ -40,7 +43,7 @@ function startFileManager() {
         break;
     }
 
-    printCurrentPath(currentPath);
+    process.stdout.write(`You are currently in ${process.cwd()}${os.EOL}`);
 
     // rl.prompt();
   });
@@ -53,8 +56,8 @@ function startFileManager() {
   });
 }
 
-function printCurrentPath(path) {
-  process.stdout.write(`You are currently in ${path}${os.EOL}`);
-}
+// function printCurrentPath(path) {
+//   process.stdout.write(`You are currently in ${path}${os.EOL}`);
+// }
 
 startFileManager();
