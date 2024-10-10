@@ -1,8 +1,9 @@
 import os from 'os';
 import readline from 'readline';
-import { upToFolder } from './src/upToFolder.js';
-import { goToFolder } from './src/goToFolder.js';
-import { printList } from './src/printList.js';
+import { upToFolder } from './src/nwd/upToFolder.js';
+import { goToFolder } from './src/nwd/goToFolder.js';
+import { printList } from './src/nwd/printList.js';
+import { readFileContent } from './src/workWithFiles/readFileContent.js';
 
 const commands = {
   '.exit': {
@@ -22,7 +23,7 @@ const commands = {
     numbArgs: 0,
   },
   cat: {
-    fn: (args) => readFileContent(args[0]),
+    fn: async (args) => await readFileContent(args[0]),
     numbArgs: 1,
   },
   add: {
