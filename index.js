@@ -5,6 +5,7 @@ import { goToFolder } from './src/nwd/goToFolder.js';
 import { printList } from './src/nwd/printList.js';
 import { readFileContent } from './src/workWithFiles/readFileContent.js';
 import { createFile } from './src/workWithFiles/createFile.js';
+import { renameFile } from './src/workWithFiles/renameFile.js';
 
 const commands = {
   up: {
