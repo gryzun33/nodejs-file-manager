@@ -6,6 +6,7 @@ import { printList } from './src/nwd/printList.js';
 import { readFileContent } from './src/workWithFiles/readFileContent.js';
 import { createFile } from './src/workWithFiles/createFile.js';
 import { renameFile } from './src/workWithFiles/renameFile.js';
+import { copyExistFile } from './src/workWithFiles/copyExistFile.js';
 
 const commands = {
   up: {
@@ -33,7 +34,7 @@ const commands = {
     numbArgs: 2,
   },
   cp: {
-    fn: (args) => copyFile(args[0], args[1]),
+    fn: (args) => copyExistFile(args[0], args[1]),
     numbArgs: 2,
   },
   mv: {
