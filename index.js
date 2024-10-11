@@ -76,7 +76,11 @@ function startFileManager() {
       if (args.length !== command.numbArgs) {
         process.stdout.write(`Invalid input${os.EOL}`);
       } else {
-        await command.fn(args);
+        try {
+          await command.fn(args);
+        } catch (error) {
+          process.stdout.write(`!!!!!!${error.message}${os.EOL}`);
+        }
       }
     } else {
       process.stdout.write(`Invalid input${os.EOL}`);
