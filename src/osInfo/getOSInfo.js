@@ -1,9 +1,9 @@
 import os from 'os';
 
-function getOSInfo(args) {
-  const option = args[0];
+function getOSInfo(arg) {
+  // const option = args[0];
 
-  switch (option) {
+  switch (arg) {
     case '--EOL':
       console.log(
         `Default system End-Of-Line: ${os.EOL === '\n' ? '\\n' : '\\r\\n'}`

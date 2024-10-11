@@ -10,6 +10,7 @@ import { copyExistFile } from './src/workWithFiles/copyExistFile.js';
 import { moveFile } from './src/workWithFiles/moveFile.js';
 import { removeFile } from './src/workWithFiles/removeFile.js';
 import { getOSInfo } from './src/osInfo/getOSInfo.js';
+import { calculateHash } from './src/hashCalc/calculateHash.js';
 
 const commands = {
   up: {
@@ -49,7 +50,11 @@ const commands = {
     numbArgs: 1,
   },
   os: {
-    fn: (args) => getOSInfo(args),
+    fn: (args) => getOSInfo(args[0]),
+    numbArgs: 1,
+  },
+  hash: {
+    fn: (args) => calculateHash(args[0]),
     numbArgs: 1,
   },
 };
