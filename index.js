@@ -4,12 +4,9 @@ import { upToFolder } from './src/nwd/upToFolder.js';
 import { goToFolder } from './src/nwd/goToFolder.js';
 import { printList } from './src/nwd/printList.js';
 import { readFileContent } from './src/workWithFiles/readFileContent.js';
+import { createFile } from './src/workWithFiles/createFile.js';
 
 const commands = {
-  '.exit': {
-    fn: () => rl.close(),
-    numbArgs: 0,
-  },
   up: {
     fn: () => upToFolder(),
     numbArgs: 0,
@@ -70,17 +67,17 @@ function startFileManager() {
   rl.on('line', async (input) => {
     const [cmd, ...args] = input.trim().split(' ');
 
+    if (cmd === '.exit') {
+      rl.close();
+    }
+
     if (commands[cmd]) {
       const command = commands[cmd];
 
       if (args.length !== command.numbArgs) {
         process.stdout.write(`Invalid input${os.EOL}`);
       } else {
-        try {
-          await command.fn(args);
-        } catch (error) {
-          process.stdout.write(`!!!!!!${error.message}${os.EOL}`);
-        }
+        await command.fn(args);
       }
     } else {
       process.stdout.write(`Invalid input${os.EOL}`);
