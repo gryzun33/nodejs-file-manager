@@ -9,6 +9,7 @@ import { renameFile } from './src/workWithFiles/renameFile.js';
 import { copyExistFile } from './src/workWithFiles/copyExistFile.js';
 import { moveFile } from './src/workWithFiles/moveFile.js';
 import { removeFile } from './src/workWithFiles/removeFile.js';
+import { getOSInfo } from './src/osInfo/getOSInfo.js';
 
 const commands = {
   up: {
@@ -47,9 +48,11 @@ const commands = {
     fn: (args) => removeFile(args[0]),
     numbArgs: 1,
   },
+  os: {
+    fn: (args) => getOSInfo(args),
+    numbArgs: 1,
+  },
 };
-
-console.log('====', process.cwd());
 
 function startFileManager() {
   let currentPath = os.homedir();
@@ -71,7 +74,7 @@ function startFileManager() {
   });
 
   rl.on('line', async (input) => {
-    const [cmd, ...args] = input.trim().split(' ');
+    const [cmd, ...args] = input.trim().split(/\s+/);
 
     if (cmd === '.exit') {
       rl.close();
