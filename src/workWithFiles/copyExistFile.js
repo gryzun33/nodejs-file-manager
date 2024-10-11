@@ -20,7 +20,7 @@ async function copyExistFile(oldPath, newPath) {
 
     const handleError = () => {
       if (!errorHandled) {
-        console.error('Operation failed 1');
+        console.error('Operation failed');
         errorHandled = true;
         resolve();
       }

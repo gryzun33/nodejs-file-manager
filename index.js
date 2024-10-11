@@ -49,6 +49,8 @@ const commands = {
   },
 };
 
+console.log('====', process.cwd());
+
 function startFileManager() {
   let currentPath = os.homedir();
   process.chdir(currentPath);
