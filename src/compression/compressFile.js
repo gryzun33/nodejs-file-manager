@@ -4,7 +4,7 @@ import path from 'path';
 import { pipeline } from 'stream/promises';
 
 async function compressFile(oldPath, newPath) {
-  const fileName = path.parse(oldPath).name;
+  const fileName = path.basename(oldPath);
   const pathToOldFile = path.resolve(process.cwd(), oldPath);
   const pathToNewDirectory = path.resolve(process.cwd(), newPath);
   const pathToNewFile = path.join(pathToNewDirectory, `${fileName}.br`);
