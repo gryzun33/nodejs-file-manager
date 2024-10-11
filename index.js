@@ -11,6 +11,8 @@ import { moveFile } from './src/workWithFiles/moveFile.js';
 import { removeFile } from './src/workWithFiles/removeFile.js';
 import { getOSInfo } from './src/osInfo/getOSInfo.js';
 import { calculateHash } from './src/hashCalc/calculateHash.js';
+import { compressFile } from './src/compression/compressFile.js';
+import { decompressFile } from './src/compression/decompressFile.js';
 
 const commands = {
   up: {
@@ -56,6 +58,14 @@ const commands = {
   hash: {
     fn: (args) => calculateHash(args[0]),
     numbArgs: 1,
+  },
+  compress: {
+    fn: (args) => compressFile(args[0], args[1]),
+    numbArgs: 2,
+  },
+  decompress: {
+    fn: (args) => decompressFile(args[0], args[1]),
+    numbArgs: 2,
   },
 };
 
