@@ -7,6 +7,7 @@ import { readFileContent } from './src/workWithFiles/readFileContent.js';
 import { createFile } from './src/workWithFiles/createFile.js';
 import { renameFile } from './src/workWithFiles/renameFile.js';
 import { copyExistFile } from './src/workWithFiles/copyExistFile.js';
+import { moveFile } from './src/workWithFiles/moveFile.js';
 
 const commands = {
   up: {
