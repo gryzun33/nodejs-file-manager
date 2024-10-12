@@ -74,6 +74,7 @@ function startFileManager() {
   process.chdir(currentPath);
 
   const args = process.argv.slice(2);
+
   const argUser = args.find((arg) => arg.startsWith('--username='));
   let userName = 'Anonymous';
 
