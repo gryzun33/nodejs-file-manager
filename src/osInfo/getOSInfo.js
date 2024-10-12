@@ -5,9 +5,7 @@ function getOSInfo(arg) {
 
   switch (arg) {
     case '--EOL':
-      console.log(
-        `Default system End-Of-Line: ${os.EOL === '\n' ? '\\n' : '\\r\\n'}`
-      );
+      console.log(`Default system End-Of-Line: ${JSON.stringify(os.EOL)}`);
       break;
     case '--cpus':
       const cpus = os.cpus();
