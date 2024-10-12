@@ -90,7 +90,20 @@ function startFileManager() {
   });
 
   rl.on('line', async (input) => {
-    const [cmd, ...args] = input.trim().split(/\s+/);
+    const indFirstSpace = input.indexOf(' ');
+    const cmd =
+      indFirstSpace === -1
+        ? input.trim()
+        : input.slice(0, indFirstSpace).trim();
+    const restOfInput =
+      indFirstSpace === -1 ? '' : input.slice(indFirstSpace).trim();
+
+    const args =
+      restOfInput.length > 0
+        ? restOfInput
+            .match(/(?:[^\s'""]+|"[^"]*"|'[^']*')+/g)
+            .map((arg) => arg.replace(/^["']|["']$/g, ''))
+        : [];
 
     if (cmd === '.exit') {
       rl.close();
