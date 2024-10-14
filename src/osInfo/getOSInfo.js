@@ -1,8 +1,6 @@
 import os from 'os';
 
 function getOSInfo(arg) {
-  // const option = args[0];
-
   switch (arg) {
     case '--EOL':
       console.log(`Default system End-Of-Line: ${JSON.stringify(os.EOL)}`);
