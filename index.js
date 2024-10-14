@@ -87,7 +87,8 @@ function startFileManager() {
     output: process.stdout,
   });
 
-  rl.on('line', async (input) => {
+  rl.on('line', async (data) => {
+    const input = data.trim();
     const indFirstSpace = input.indexOf(' ');
     const cmd =
       indFirstSpace === -1
