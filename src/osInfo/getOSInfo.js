@@ -9,13 +9,12 @@ function getOSInfo(arg) {
       const cpus = os.cpus();
       console.log(`Overall amount of CPUS: ${cpus.length}`);
 
-      cpus.forEach((cpu, index) => {
-        console.log(
-          `CPU ${index + 1}: ${cpu.model}, Clock rate: ${(
-            cpu.speed / 1000
-          ).toFixed(2)} GHz`
-        );
-      });
+      const cpuInfo = cpus.map((cpu) => ({
+        Model: cpu.model,
+        Clock_Rate: `${(cpu.speed / 1000).toFixed(2)} GHz`,
+      }));
+
+      console.table(cpuInfo);
       break;
     case '--homedir':
       console.log(`Home directory: ${os.homedir()}`);
