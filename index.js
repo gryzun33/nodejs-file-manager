@@ -76,11 +76,8 @@ function startFileManager() {
   const args = process.argv.slice(2);
 
   const argUser = args.find((arg) => arg.startsWith('--username='));
-  let userName = 'Anonymous';
 
-  if (argUser) {
-    userName = argUser.split('=')[1];
-  }
+  const userName = argUser ? argUser.split('=')[1] : 'Anonymous';
 
   process.stdout.write(`Welcome to the File Manager, ${userName}!${os.EOL}`);
   process.stdout.write(`You are currently in ${process.cwd()}${os.EOL}`);
