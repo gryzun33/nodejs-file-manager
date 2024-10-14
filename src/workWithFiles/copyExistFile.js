@@ -3,9 +3,14 @@ import fs from 'fs';
 
 async function copyExistFile(oldPath, newPath) {
   const fileName = path.basename(oldPath);
+  const { name, ext } = path.parse(oldPath);
   const pathToOldFile = path.resolve(process.cwd(), oldPath);
   const pathToNewDirectory = path.resolve(process.cwd(), newPath);
-  const pathToNewFile = path.join(pathToNewDirectory, fileName);
+  let pathToNewFile = path.join(pathToNewDirectory, fileName);
+
+  if (pathToOldFile === pathToNewFile) {
+    pathToNewFile = path.join(pathToNewDirectory, `${name}_copy${ext}`);
+  }
 
   return new Promise((resolve) => {
     const readStream = fs.createReadStream(pathToOldFile);

@@ -8,6 +8,10 @@ async function moveFile(oldPath, newPath) {
   const pathToNewDirectory = path.resolve(process.cwd(), newPath);
   const pathToNewFile = path.join(pathToNewDirectory, fileName);
 
+  if (pathToOldFile === pathToNewFile) {
+    return;
+  }
+
   return new Promise((resolve) => {
     const readStream = fs.createReadStream(pathToOldFile);
     const writeStream = fs.createWriteStream(pathToNewFile);
